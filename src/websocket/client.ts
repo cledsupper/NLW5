@@ -30,6 +30,8 @@ io.on("connect", (socket) => {
         else {
             connection.socket_id = socket_id
             await connectionsService.create(connection)
+            // O cliente está solicitando um novo atendimento
+            await connectionsService.updateAdminId(user.id, null)
         }
 
         await messagesService.create({
@@ -47,16 +49,17 @@ io.on("connect", (socket) => {
     
     socket.on("client_send", async (params) => {
         const { text, socket_admin_id } = params
-        const { user_id } = await this.connectionsService.findBySocketId(socket.id)
+        const connection = await connectionsService.findBySocketId(socket.id)
+        const { user_id } = connection
         
-        const message = await this.messagesService.create({
+        const message = await messagesService.create({
             text,
             user_id
         })
         
         io.to(socket_admin_id).emit("client_sent", {
             message,
-            socket_id: socket.id
+            connection
         })
     })
 })

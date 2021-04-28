@@ -98,13 +98,13 @@
   <script>
     onLoad();
     const chat = document.getElementById("chat_help");
+    const btn_support = document.getElementById("btn_support")
 
     function onLoad() {
       fetch("http://localhost:3333/settings/admin").then((result) =>
         result.json().then((response) => {
-          const buttonSupport = document.getElementById("btn_support");
           if (!response.chat) {
-            buttonSupport.style.display = "none";
+            btn_support.style.display = "none";
           }
         })
       );
@@ -112,6 +112,8 @@
 
     function openChat() {
       chat.style.display = "block";
+      // Botão de suporte gosta de atrapalhar a visão :D
+      btn_support.style.display = "none";
     }
 
     function closeChat() {

@@ -1,2 +1,3 @@
 # Pacotes externos e arquivos privados
 node_modules/
+*.sqlite

@@ -45,7 +45,7 @@ class ConnectionsService {
     }
     
     async findBySocketId(socket_id: string) {
-        const connection = await this.connectionsRepository.find({
+        const connection = await this.connectionsRepository.findOne({
             where: { socket_id },
             relations: ["user"]
         })
@@ -53,8 +53,8 @@ class ConnectionsService {
     }
 
     async updateAdminId(user_id: string, admin_id: string) {
-        await this.settingsRepository.createQueryBuilder()
-            .update(Settings)
+        await this.connectionsRepository.createQueryBuilder()
+            .update(Connection)
             .set({ admin_id })
             .where("user_id = :user_id", {
                 user_id

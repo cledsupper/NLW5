@@ -53,8 +53,13 @@ export class CreateConnections1619113212772 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey("connections", "FKConnectionUser")
+        // ISTO NÃO É NECESSÁRIO!
+        //await queryRunner.dropForeignKey("connections", "FKConnectionUser")
+        // Remover a tabela 'connections' já remove as chaves estrangeiras
         await queryRunner.dropTable("connections")
+        /* Descomente a linha, rode migration:run para gerar o DB e por último migration:revert
+         * O resultado é que o typeorm não encontrará a foreign key e vai crashar. */
+
     }
 
 }

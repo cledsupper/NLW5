@@ -1,6 +1,6 @@
 const socket = io()
 
-let usersConnections = []
+var usersConnections = []
 
 socket.on("admin_list_all_users", connections => {
     usersConnections = connections
@@ -20,21 +20,23 @@ socket.on("admin_list_all_users", connections => {
 })
 
 socket.on("client_sent", params => {
-    const connection = usersConnections.find(connection => connection.socket_id === params.socket_id)
+    const { message, connection } = params
+
+    const divMessages = document.getElementById(`allMessages${connection.user_id}`)
 
     const createDiv = document.createElement("div")
     createDiv.className = "admin_message_client"
     
     createDiv.innerHTML = `<span>${connection.user.email}</span>`
-    createDiv.innerHTML += `<span>${params.message.text}</span>`
+    createDiv.innerHTML += `<span>${message.text}</span>`
     createDiv.innerHTML += `<span class="admin_date">${dayjs(
-        params.message.created_at
+        message.created_at
     ).format("DD/MM/YYYY HH:mm:ss")}</span>`
     divMessages.appendChild(createDiv)
 })
 
 function call(id) {
-    const connection = usersConnections.find(connection => connection.socket_id === id)
+    const connection = usersConnections.find(c => c.socket_id === id)
 
     const template = document.getElementById("admin_template").innerHTML
 
@@ -90,11 +92,11 @@ function sendMessage(id) {
     const divMessages = document.getElementById(`allMessages${id}`)
     const createDiv = document.createElement("div")
     createDiv.className = "admin_message_admin"
-    createDiv.innerHTML = `Atendente: <span>${message.text}</span>`
+    createDiv.innerHTML = `Atendente: <span>${text.value}</span>`
     createDiv.innerHTML += `<span class="admin_date">${dayjs().format(
         "DD/MM/YYYY HH:mm:ss"
     )}</span>`
-    allMessages.appendChild(createDiv)
+    divMessages.appendChild(createDiv)
     
     text.value = ""
 }
