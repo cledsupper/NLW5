@@ -1,5 +1,7 @@
 # NLW5: trilha backend com Node.js
 
+## O projeto: uma aplicação backend para possibilitar atendimento online
+
 O evento NLW#5 da RocketSeat, trilha Node.js (backend), teve como objetivo criar uma API simples para uma funcionalidade de atendimento online.
 
 
