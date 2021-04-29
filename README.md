@@ -43,7 +43,7 @@ OBSERVAÇÃO: infelizmente você terá que remover os pacotes python e pip (vers
 $ apt remove python pip
 $ apt install python2 pip2
 # Definir comandos python2 e pip2 como padrão
-$ cd ../usr/bin
+$ cd $HOME/../usr/bin
 $ ln -s python2 python # Python
 $ ln -s pip2 pip # Pip
 ```
